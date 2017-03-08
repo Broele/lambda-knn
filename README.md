@@ -1,13 +1,14 @@
 # lambda-knn
 Sample code for the lambda-knn method
 ## Usage
-- Initialize with `init` (add subfolder to the path)
-- Usage `createGraph` to perform one of the methods and get the resulting graph
+- Initialize with `init` (add subfolder to the path).
+- Use `createDataset` for creating a synthetic dataset.
+- Use `createGraph` to perform one of the methods and get the resulting graph.
 
 ## Example
 ```matlab
-% Create random points
-P = randn(100, 2);
+% Create synthetic dataset with 500 points
+P = createDataset('spirals', 500, 'sigma', 0.1);
 
 % Get two graphs
 G1 = createGraph(P, 'krnn', 5);
