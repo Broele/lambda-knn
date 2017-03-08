@@ -12,5 +12,12 @@ P = createDataset('spirals', 500, 'sigma', 0.1);
 
 % Get two graphs
 G1 = createGraph(P, 'krnn', 5);
-G2 = createGraph(P, 'lknnc', 1, 1, 5);
+G2 = createGraph(P, 'lknnc', 5, 1, 1);
+
+% Get statistics
+S(1) = graphStatistics(G1);
+S(2) = graphStatistics(G2);
+
+% Print statistics
+printMainStatsTable(1, S, 'krnn', 'lknnc');
 ```
