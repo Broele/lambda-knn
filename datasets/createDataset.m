@@ -23,12 +23,15 @@ function [ points, classes, identifier ] = createDataset( type, varargin )
 %                   Default: 1
 %       'spirals':
 %           This function creates a number of spirals. N is
-%           here the number of points.
+%           here the number of points. The maximal distance from the center
+%           is set to 1. When creating, each point is randomly sifted along 
+%           the radius, to get some random distribution. This also allows
+%           for resulting distances from the center of more than 1
 %           Parameters:
-%               'C':
-%               'sigma':
-%               'r0':
-%               'phi':
+%               'C': Number of classes
+%               'sigma': variance of the radius of the points
+%               'r0': The size of the inner hole.
+%               'phi': The rotation of each spiral
 %   General parameters:
 %       'seed': The seed for the random generator. This allows to run
 %           repreatable tests. Default: 1
