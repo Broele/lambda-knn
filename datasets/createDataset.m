@@ -32,6 +32,16 @@ function [ points, classes, identifier ] = createDataset( type, varargin )
 %               'sigma': variance of the radius of the points
 %               'r0': The size of the inner hole.
 %               'phi': The rotation of each spiral
+%       'helix':
+%           This function creates one or multiple helixes. N is
+%           here the number of points. When creating, each point is 
+%           randomly shifted orthogonal to the helix center. 
+%           Parameters:
+%               'C': Number of classes / helixes
+%               'sigma': variance of the noise
+%               'radius': The radius.
+%               'rot': The number of full rotations of each helix
+%               'height': the height-difference of one full rotation
 %   General parameters:
 %       'seed': The seed for the random generator. This allows to run
 %           repreatable tests. Default: 1
@@ -130,7 +140,49 @@ switch lower(type)
         points(:,1) = R .* cos(A);
         points(:,2) = R .* sin(A);
         rng(s);
+    case 'helix'
+        % Parse input
+        parser.addOptional('N', 1000);
+        parser.addParameter('C', 2);
+        parser.addParameter('sigma', 0.1);
+        parser.addParameter('radius', 1);
+        parser.addParameter('rot', 3);
+        parser.addParameter('height', 1);
+        parser.parse(varargin{:});
         
+        N    = parser.Results.N;
+        C    = parser.Results.C;
+        seed = parser.Results.seed;
+        r    = parser.Results.radius;
+        rot  = parser.Results.rot;
+        sig  = parser.Results.sigma;
+        h    = parser.Results.height;
+        
+        % create identifier
+        identifier = sprintf('helix(N=%d,C=%d,s=%g,r=%g,rot=%g,h=%g)', N, C, sig, r, rot, h);
+        
+        phi = 2 * pi * rot;
+        h = h / (2 * pi);
+        
+        % Generate points
+        s = rng(seed);
+        
+        % Classes
+        classes = randi(C,N,1);
+        
+        % Undistorted angle and coordinates
+        t = rand(N,1) * phi;
+        t2 = t + classes * 2 * pi / C;
+        points = [r * sin(t2), r * cos(t2), h * t];
+        
+        % Distortion (of radius)
+        N1 = [- sin(t2), -cos(t2), zeros(N,1)];
+        N2 = [h * cos(t2), -h * sin(t2), ones(N,1) * r] / sqrt(h^2 + r^2);
+        alpha = rand(N,1) * 2 * pi;
+        R = randn(N,1) * sig;
+        points = points + R .* (sin(alpha) .* N1 + cos(alpha) .* N2);
+
+        rng(s);    
         
     otherwise
         error('Dataset type "%s" is not supported', type);
