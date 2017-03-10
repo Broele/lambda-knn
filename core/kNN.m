@@ -10,7 +10,7 @@ function [G, Adj]=kNN(Points, k)
 
 %% Compute Distance Matrix
 [N]=size(Points, 1);
-D = pdist2(Points,Points,'cityblock');
+D = pdist2(Points,Points);
 D(diag(true(N,1))) = Inf;
 
 

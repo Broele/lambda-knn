@@ -19,7 +19,7 @@ Adj=zeros(N);
 %% Computing the table
 col = repmat(1:N, N,1);
 col(diag(true(1,N))) = 0;
-Table = [squareform(col')', squareform(col)', pdist(Point, 'cityblock')'];
+Table = [squareform(col')', squareform(col)', pdist(Point)'];
 dist = squareform(Table(:,3));
 dist(diag(true(1,N))) = inf;
 count = size(Table,1);

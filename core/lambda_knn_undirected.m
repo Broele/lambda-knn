@@ -47,7 +47,7 @@ Adj=zeros(N);
 Table=zeros(N*(N-1)/2,4);
 
 % Compute pairwise distances
-dist = pdist2(Points,Points,'cityblock');
+dist = pdist2(Points,Points);
 dist(diag(true(N,1))) = Inf;
 
 % Adapt lambda - weights
