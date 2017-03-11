@@ -32,11 +32,11 @@ len = max(cellfun(@numel, names));
 for i = 1:len
     fprintf('-');
 end
-fprintf('-+--------+--------+-------- \n');
-format = ['%', num2str(len), 's | %6.3f | %6.3f | %6.3f \n'];
+fprintf('-+--------+--------+--------+-------- \n');
+format = ['%', num2str(len), 's | %6.3f | %6.3f | %6.3f | %6.3f \n'];
 
 for j = 1:numel(stats)
-    fprintf(fid, format, names{j}, stats(j).avgDegree, stats(j).stdDegree, stats(j).sumOfDist);
+    fprintf(fid, format, names{j}, stats(j).avgDegree, stats(j).stdDegree, stats(j).sumOfDist, stats(j).sumOfDist / stats(j).avgDegree);
 end
 
 %% Clean up
