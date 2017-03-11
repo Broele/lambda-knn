@@ -5,3 +5,4 @@ dbstop if error
 path(path, 'core');
 path(path, 'datasets');
 path(path, 'eval');
+path(path, 'utils');
