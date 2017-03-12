@@ -42,6 +42,7 @@ n = size(G,1);
 % Node degree
 Deg = sum(G,2);
 
+stats.nodeN = n;
 stats.edgeN = sum(Deg);
 stats.avgDegree = mean(Deg);
 stats.maxDegree = max(Deg);
