@@ -25,8 +25,8 @@ S2 = computeMultipleStatistics('results', P, 'helix_2000', methods(:,1), methods
 S2a = computeMultipleStatistics('results', P, 'helix_1000', methods(:,1), methods(:,2), K);
 
 %% Dataset 3
-if exist('dataset/stored/cloud1.csv', 'file')
-    D = dlmread('dataset/stored/cloud1.csv',';');
+if exist('datasets/stored/cloud1.csv', 'file')
+    D = dlmread('datasets/stored/cloud1.csv',';');
     P = D - repmat(mean(D,1),1024,1);
     P = P ./ repmat(std(D,1),1024,1);
 
